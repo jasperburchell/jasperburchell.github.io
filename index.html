@@ -26,29 +26,26 @@
       h1,h2,h3,h4,h5,h6, .logo { font-family: 'Author', 'Satoshi', sans-serif; font-weight: 700; letter-spacing: 0.01em; }
       #bio .major p { font-style: normal; }
 
-      /* ========= NAV: template layout preserved, vertically centered labels ========= */
+      /* ========= NAV: classic block + line-height centering (matches social icons) ========= */
       #nav .links li { margin: 0; padding: 0; }
       #nav .links li a {
+        display: block;                   /* no flex; reliable across Safari/Chrome */
+        height: 3.5rem;                   /* same as template row height */
+        line-height: 3.5rem;              /* makes text vertically centered */
+        padding: 0 1.25rem;               /* horizontal breathing room only */
+
         text-transform: uppercase;
         letter-spacing: 0.06em;
         font-family: 'Author','Satoshi',sans-serif;
-        border-bottom: none !important;      /* remove faint underline */
-        display: flex; align-items: center;  /* vertical center */
-        justify-content: center;             /* horizontal center */
-        height: 3.5rem;                      /* match template item height */
-        padding: 0 1.25rem;                  /* horizontal room only */
-        line-height: 1;                      /* avoid baseline drift */
-        position: relative;                  /* keep template pills aligned */
+        border-bottom: none !important;   /* remove faint underline */
         text-decoration: none !important;
+        position: relative;               /* keep active pill pseudo-elements aligned */
       }
-      @media screen and (max-width: 980px) { #nav .links li a { height: 3.25rem; } }
+      @media screen and (max-width: 980px) {
+        #nav .links li a { height: 3.25rem; line-height: 3.25rem; }
+      }
       /* Keep template :before/:after for active “white pill” */
       #nav .links li a:before, #nav .links li a:after { content: ""; }
-
-      /* Slight WebKit nudge if needed */
-      @supports (-webkit-touch-callout: none) {
-        #nav .links li a { transform: translateY(1px); }
-      }
 
       /* Hero background + logo */
       #intro.custom-hero { position: relative; }
@@ -288,7 +285,6 @@
         <section id="releases" class="posts">
           <article class="reveal">
             <div class="card-bg">
-              <!-- Make sure the file in /images is renamed to release-1.webp (no space) -->
               <img src="images/release-1.webp" alt="i can feel my mind cover" />
             </div>
             <div class="overlay"></div>
