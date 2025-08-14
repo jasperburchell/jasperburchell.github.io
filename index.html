@@ -26,33 +26,20 @@
       h1,h2,h3,h4,h5,h6, .logo { font-family: 'Author', 'Satoshi', sans-serif; font-weight: 700; letter-spacing: 0.01em; }
       #bio .major p { font-style: normal; }
 
-      /* NAV: all caps, centered vertically & horizontally, no underline line (Safari-safe) */
-      #nav .links {
-        display: flex; align-items: center; gap: 0;
-      }
-      #nav .links li {
-        list-style: none;
-        display: block;
-        height: 3.5rem;
-        margin: 0; padding: 0;
-      }
+      /* ========= NAV: keep template layout, just uppercase + Author, no underline ========= */
+      /* 1) Let template control sizing/centering. */
+      /* 2) Only adjust caps, letter spacing, font, and remove the thin underline border. */
       #nav .links li a {
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        display: flex; align-items: center; justify-content: center;
-        height: 100%;
-        padding: 0 1.25rem !important;
-        margin: 0 !important;
-        line-height: 1 !important;
-        border: 0 !important;
-        -webkit-font-smoothing: antialiased;
-        text-decoration: none !important;
+        font-family: 'Author','Satoshi',sans-serif;
+        border-bottom: none !important;        /* remove faint underline */
+        line-height: normal;                    /* revert any previous hard line-height */
+        padding-top: 0.85rem;                   /* gentle vertical rhythm, template-friendly */
+        padding-bottom: 0.85rem;
       }
-      #nav .links li a:after,
-      #nav .links li a:before { display: none !important; }
-      @media screen and (max-width: 980px) {
-        #nav .links li { height: 3.25rem; }
-      }
+      /* IMPORTANT: Do NOT hide :before/:after; template uses them for active box. */
+      /* (We previously hid them which broke the white active pill.) */
 
       /* Hero background + logo */
       #intro.custom-hero { position: relative; }
@@ -96,7 +83,7 @@
       .posts article.reveal:hover .card-bg img,
       .posts article.reveal.revealed .card-bg img { opacity: 1; }
       .posts article.reveal:hover .overlay,
-      .posts article.reveal.revealed .overlay { background: rgba(0,0,0,0.14); } /* lighter overlay than before */
+      .posts article.reveal.revealed .overlay { background: rgba(0,0,0,0.14); } /* lighter overlay */
       .posts article.reveal:hover,
       .posts article.reveal.revealed { color: #fff; }
       .posts article.reveal:hover h2, .posts article.reveal:hover h2 a,
