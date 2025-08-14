@@ -26,46 +26,74 @@
       h1,h2,h3,h4,h5,h6, .logo { font-family: 'Author', 'Satoshi', sans-serif; font-weight: 700; letter-spacing: 0.01em; }
       #bio .major p { font-style: normal; }
 
-      /* Nav links all caps */
-      #nav .links li a { text-transform: uppercase; letter-spacing: 0.06em; }
+      /* NAV: all caps, centered vertically, no underline line */
+      #nav .links li a {
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        display: flex; align-items: center; justify-content: center;
+        height: 3.5rem; /* matches template nav item height */
+        border-bottom: none !important;
+      }
+      #nav .links li a:after { display: none !important; } /* kill subtle underline */
+      @media screen and (max-width: 980px) {
+        #nav .links li a { height: 3.25rem; }
+      }
 
       /* Hero background + logo */
       #intro.custom-hero { position: relative; }
-      #intro.custom-hero:before { content: ""; position: absolute; inset: 0; background: url('images/hero-landing.webp') center/cover no-repeat; z-index: -2; }
-      #intro.custom-hero:after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.35); z-index: -1; }
+      #intro.custom-hero:before {
+        content: "";
+        position: absolute; inset: 0;
+        background: url('images/hero-landing.webp') center/cover no-repeat;
+        z-index: -2;
+      }
+      #intro.custom-hero:after {
+        content: "";
+        position: absolute; inset: 0;
+        background: rgba(0,0,0,0.35);
+        z-index: -1;
+      }
       #intro .hero-logo { width: min(60%, 480px); height: auto; display: block; margin: 0 auto 0.75rem auto; }
 
       /* Header logo image */
       #header .logo img.logo-img { display: block; height: 36px; width: auto; }
-      @media screen and (max-width: 736px) {
-        #header .logo img.logo-img { height: 28px; }
-      }
+      @media screen and (max-width: 736px) { #header .logo img.logo-img { height: 28px; } }
 
       /* Card background system for Client Work + Releases */
       .posts article { position: relative; overflow: hidden; }
       .posts article .card-bg { position: absolute; inset: 0; z-index: 0; }
-      .posts article .card-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s ease, filter .35s ease; filter: brightness(0.6) contrast(1.1); }
-      .posts article .overlay { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background .35s ease; z-index: 1; }
+      .posts article .card-bg img {
+        width: 100%; height: 100%; object-fit: cover;
+        opacity: 0; transition: opacity .35s ease, filter .35s ease;
+        filter: brightness(0.8) contrast(1.05);
+      }
+      .posts article .overlay {
+        content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0);
+        transition: background .35s ease; z-index: 1;
+      }
       .posts article > *:not(.card-bg):not(.overlay):not(a.card-overlay) { position: relative; z-index: 2; }
 
-      /* Default state: white background, black text */
+      /* Default card state: white bg, black text */
       .posts article { background: #fff; color: #111; }
-      .posts article h2 a { color: inherit; }
+      .posts article h2, .posts article h2 a, .posts article .date, .posts article p { color: inherit; }
 
-      /* Hover/Reveal state */
+      /* REVEAL STATE (hover on desktop, scroll on touch) */
       .posts article.reveal:hover .card-bg img,
       .posts article.reveal.revealed .card-bg img { opacity: 1; }
       .posts article.reveal:hover .overlay,
-      .posts article.reveal.revealed .overlay { background: rgba(0,0,0,0.35); }
+      .posts article.reveal.revealed .overlay { background: rgba(0,0,0,0.18); } /* lighter overlay */
       .posts article.reveal:hover,
       .posts article.reveal.revealed { color: #fff; }
-      .posts article.reveal:hover h2 a,
-      .posts article.reveal.revealed h2 a,
-      .posts article.reveal:hover .date,
-      .posts article.reveal.revealed .date { color: #fff !important; }
+      .posts article.reveal:hover h2, .posts article.reveal:hover h2 a,
+      .posts article.reveal.revealed h2, .posts article.reveal.revealed h2 a,
+      .posts article.reveal:hover .date, .posts article.reveal.revealed .date,
+      .posts article.reveal:hover p, .posts article.reveal.revealed p { color: #fff !important; }
 
-      /* Make entire card clickable without extra button */
-      a.card-overlay { position: absolute; inset: 0; z-index: 3; text-indent: -9999px; overflow: hidden; }
+      /* Make entire card clickable without button */
+      a.card-overlay {
+        position: absolute; inset: 0; z-index: 3;
+        text-indent: -9999px; overflow: hidden;
+      }
 
       /* Press quotes styling */
       .press-quotes blockquote { margin: 0 0 1.25rem 0; font-style: italic; }
@@ -145,7 +173,7 @@
               <h2>Artist Project Launch — Creative Direction</h2>
             </header>
             <p>Planned, performed, and executed an original release campaign (promo strategy, visuals, press outreach, launch event). Praised by Nick Halkes (XL Recordings) for initiative and cross-disciplinary skills.</p>
-            <a class="card-overlay" href="https://www.youtube.com/playlist?list=PLb2EUJqoqMANyWYQbLu4KSofCUOhB4hz0" aria-label="Open project: Artist Project Launch"></a>
+            <a class="card-overlay" href="https://www.youtube.com/playlist?list=PLb2EUJqoqMANyWYQbLu4KSofCUOhB4hz0" target="_blank" rel="noopener" aria-label="Open project: Artist Project Launch"></a>
           </article>
 
           <!-- 2. Barbican × BBC Radio 3 -->
@@ -157,7 +185,7 @@
               <h2>Barbican × BBC Radio 3 Commission — Composer (Electronic)</h2>
             </header>
             <p>Co-created an immersive vocal–electronic piece exploring manipulation, spatial composition, and poetic sound. Performed at the Barbican and broadcast on BBC Radio 3.</p>
-            <a class="card-overlay" href="https://youtu.be/MTUpPdXKIqs" aria-label="Open project: Barbican × BBC Radio 3"></a>
+            <a class="card-overlay" href="https://youtu.be/MTUpPdXKIqs" target="_blank" rel="noopener" aria-label="Open project: Barbican × BBC Radio 3"></a>
           </article>
 
           <!-- 3. Live AV Show Development -->
@@ -169,7 +197,7 @@
               <h2>Live AV Show Development — The Premises Studios</h2>
             </header>
             <p>Designed and performed an integrated electronic live set with synced lighting/visuals, live looping, and remixing. Built responsive MIDI systems to control audio and visual elements dynamically.</p>
-            <a class="card-overlay" href="https://youtu.be/tvJ7rZVWtcI" aria-label="Open project: Live AV Show Development"></a>
+            <a class="card-overlay" href="https://youtu.be/tvJ7rZVWtcI" target="_blank" rel="noopener" aria-label="Open project: Live AV Show Development"></a>
           </article>
 
           <!-- 4. National Gallery Commission -->
@@ -181,7 +209,7 @@
               <h2>National Gallery Commission — Composer (String Quartet)</h2>
             </header>
             <p>Composed an original string quartet inspired by a selected artwork for the National Gallery’s Friday Lates. Collaborated with classically trained performers in a public setting.</p>
-            <a class="card-overlay" href="https://youtu.be/GYG5FtKLWxw" aria-label="Open project: National Gallery Commission"></a>
+            <a class="card-overlay" href="https://youtu.be/GYG5FtKLWxw" target="_blank" rel="noopener" aria-label="Open project: National Gallery Commission"></a>
           </article>
 
           <!-- 5. Norwich Love Light Festival -->
@@ -193,7 +221,7 @@
               <h2>Norwich Love Light Festival — AV Composer</h2>
             </header>
             <p>Created a multimedia installation combining music and projection art to explore light, sound, and emotion.</p>
-            <a class="card-overlay" href="https://www.youtube.com/watch?v=Xxsos4vQPuw" aria-label="Open project: Norwich Love Light Festival"></a>
+            <a class="card-overlay" href="https://www.youtube.com/watch?v=Xxsos4vQPuw" target="_blank" rel="noopener" aria-label="Open project: Norwich Love Light Festival"></a>
           </article>
 
           <!-- 6. RCA Animated Short (LIAF) -->
@@ -205,7 +233,7 @@
               <h2>RCA Animated Short (LIAF Festival) — Composer</h2>
             </header>
             <p>Scored an animated short on mass culture and the industrialisation of art. Rhythm language inspired by Pink Floyd’s “Money,” tightly synced to edit for festival screening.</p>
-            <a class="card-overlay" href="https://www.facebook.com/LIAFanimation/videos/introducing-sub-text-ltd-celebrating-our-long-shorts-programme-screening-tomorro/878621930512084/" aria-label="Open project: RCA Animated Short"></a>
+            <a class="card-overlay" href="https://www.facebook.com/LIAFanimation/videos/introducing-sub-text-ltd-celebrating-our-long-shorts-programme-screening-tomorro/878621930512084/" target="_blank" rel="noopener" aria-label="Open project: RCA Animated Short"></a>
           </article>
 
           <!-- 7. Content Producer — Yes Please! / SMN UK -->
@@ -217,7 +245,7 @@
               <h2>Content Producer — Yes Please! / Student Music Network UK</h2>
             </header>
             <p>Filmed, edited, and produced artist interviews and backstage content at Wireless and Bearded Theory festivals (NSG, Kairo Keyz, Big Special, Prima Queen). Edited a remote interview with Briston Maroney.</p>
-            <a class="card-overlay" href="https://www.youtube.com/watch?v=swsW59he5Yw" aria-label="Open project: Content Producer — Yes Please! / SMN UK"></a>
+            <a class="card-overlay" href="https://www.youtube.com/watch?v=swsW59he5Yw" target="_blank" rel="noopener" aria-label="Open project: Content Producer — Yes Please! / SMN UK"></a>
           </article>
 
           <!-- 8. Head of Production — In Britannia -->
@@ -229,7 +257,7 @@
               <h2>Head of Production — In Britannia by WhyNotJimi</h2>
             </header>
             <p>Oversaw recording, mixing, mastering, and sonic direction for the album, shaping its narrative arc and cohesive palette.</p>
-            <a class="card-overlay" href="https://open.spotify.com/album/4bvGSN5XILHxedY8LJ9aJk?si=nQyvt41vRdqbktVrroYeGA" aria-label="Open project: In Britannia"></a>
+            <a class="card-overlay" href="https://open.spotify.com/album/4bvGSN5XILHxedY8LJ9aJk?si=nQyvt41vRdqbktVrroYeGA" target="_blank" rel="noopener" aria-label="Open project: In Britannia"></a>
           </article>
 
           <!-- 9. Producer & Vocal Engineer — Cross‑Cultural Pop -->
@@ -241,11 +269,11 @@
               <h2>Producer &amp; Vocal Engineer — Cross-Cultural Pop Project</h2>
             </header>
             <p>Blended Mediterranean folk influences with contemporary electronic production, using sonic design and vocal treatment to reflect cultural identity.</p>
-            <a class="card-overlay" href="https://on.soundcloud.com/nPHdbZTs40W5mivszo" aria-label="Open project: Producer & Vocal Engineer"></a>
+            <a class="card-overlay" href="https://on.soundcloud.com/nPHdbZTs40W5mivszo" target="_blank" rel="noopener" aria-label="Open project: Producer & Vocal Engineer"></a>
           </article>
         </section>
 
-        <!-- Releases (hover/tap reveal with full-card link) -->
+        <!-- Releases (hover on desktop, scroll reveal on touch; full-card link) -->
         <section id="releases" class="posts">
           <article class="reveal">
             <div class="card-bg"><img src="images/release-1.webp" alt="i can feel my mind cover" /></div>
@@ -255,7 +283,7 @@
               <h2>i can feel my mind</h2>
             </header>
             <p>5:00 • 137 BPM • Electronic / Atmospheric Club</p>
-            <a class="card-overlay" href="https://linktr.ee/_iasper" aria-label="Open release: i can feel my mind"></a>
+            <a class="card-overlay" href="https://linktr.ee/_iasper" target="_blank" rel="noopener" aria-label="Open release: i can feel my mind"></a>
           </article>
 
           <article class="reveal">
@@ -385,23 +413,21 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
 
-    <!-- Reveal on scroll for mobile (and desktop too) -->
+    <!-- Reveal on scroll for touch devices only; hover for desktop -->
     <script>
       (function(){
+        var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         var cards = document.querySelectorAll('.posts article.reveal');
-        if ('IntersectionObserver' in window) {
+
+        if (isTouch && 'IntersectionObserver' in window) {
           var io = new IntersectionObserver(function(entries){
             entries.forEach(function(entry){
               if (entry.isIntersecting) entry.target.classList.add('revealed');
             });
-          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.25 });
+          }, { rootMargin: '0px 0px -20% 0px', threshold: 0.6 }); // later reveal on mobile
           cards.forEach(function(card){ io.observe(card); });
-        } else {
-          // Fallback: reveal on first touch/click
-          cards.forEach(function(card){
-            card.addEventListener('touchstart', function(){ card.classList.add('revealed'); }, {passive:true});
-          });
         }
+        // On desktop/laptop: CSS :hover handles reveal; no JS needed.
       })();
     </script>
   </body>
