@@ -10,6 +10,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="description" content="Innovative electronic artist and producer blending genre-defying sound design with striking visuals. Discover jasper’s bold, cross-disciplinary creative work." />
+
     <!-- Core CSS from template -->
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
@@ -17,46 +18,61 @@
     <!-- Fonts: Author (headings) & Satoshi (body) via Fontshare -->
     <link href="https://api.fontshare.com/v2/css?f[]=author@700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
 
-    <!-- Small style overrides -->
+    <!-- Site overrides -->
     <style>
-      /* Typography */
-      body { font-family: 'Satoshi', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+      /* Typography tweaks */
+      body { font-family: 'Satoshi', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.35; }
+      p, li { line-height: 1.35; }
       h1,h2,h3,h4,h5,h6, .logo { font-family: 'Author', 'Satoshi', sans-serif; font-weight: 700; letter-spacing: 0.01em; }
+      #bio .major p { font-style: normal; }
 
-      /* Hero background (separate from Bio image) */
+      /* Nav links all caps */
+      #nav .links li a { text-transform: uppercase; letter-spacing: 0.06em; }
+
+      /* Hero background + logo */
       #intro.custom-hero { position: relative; }
-      #intro.custom-hero:before { content: ""; position: absolute; inset: 0; background: url('images/hero-landing.jpg') center/cover no-repeat; z-index: -2; }
+      #intro.custom-hero:before { content: ""; position: absolute; inset: 0; background: url('images/hero-landing.webp') center/cover no-repeat; z-index: -2; }
       #intro.custom-hero:after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.35); z-index: -1; }
+      #intro .hero-logo { width: min(60%, 480px); height: auto; display: block; margin: 0 auto 0.75rem auto; }
 
-      /* Press quotes as blockquotes */
+      /* Header logo image */
+      #header .logo img.logo-img { display: block; height: 36px; width: auto; }
+      @media screen and (max-width: 736px) {
+        #header .logo img.logo-img { height: 28px; }
+      }
+
+      /* Card background system for Client Work + Releases */
+      .posts article { position: relative; overflow: hidden; }
+      .posts article .card-bg { position: absolute; inset: 0; z-index: 0; }
+      .posts article .card-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s ease, filter .35s ease; filter: brightness(0.6) contrast(1.1); }
+      .posts article .overlay { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background .35s ease; z-index: 1; }
+      .posts article > *:not(.card-bg):not(.overlay):not(a.card-overlay) { position: relative; z-index: 2; }
+
+      /* Default state: white background, black text */
+      .posts article { background: #fff; color: #111; }
+      .posts article h2 a { color: inherit; }
+
+      /* Hover/Reveal state */
+      .posts article.reveal:hover .card-bg img,
+      .posts article.reveal.revealed .card-bg img { opacity: 1; }
+      .posts article.reveal:hover .overlay,
+      .posts article.reveal.revealed .overlay { background: rgba(0,0,0,0.35); }
+      .posts article.reveal:hover,
+      .posts article.reveal.revealed { color: #fff; }
+      .posts article.reveal:hover h2 a,
+      .posts article.reveal.revealed h2 a,
+      .posts article.reveal:hover .date,
+      .posts article.reveal.revealed .date { color: #fff !important; }
+
+      /* Make entire card clickable without extra button */
+      a.card-overlay { position: absolute; inset: 0; z-index: 3; text-indent: -9999px; overflow: hidden; }
+
+      /* Press quotes styling */
       .press-quotes blockquote { margin: 0 0 1.25rem 0; font-style: italic; }
       .press-quotes cite { display: block; opacity: 0.85; font-style: normal; margin-top: 0.25rem; }
 
-      /* Card background system (Client Work + Releases) */
-      .posts article.with-bg, .posts article.reveal { position: relative; overflow: hidden; }
-      .posts article.with-bg .card-bg, .posts article.reveal .card-bg { position: absolute; inset: 0; z-index: 0; }
-      .posts article.with-bg .card-bg img, .posts article.reveal .card-bg img { width: 100%; height: 100%; object-fit: cover; }
-
-      /* Always-on background (Client Work) */
-      .posts article.with-bg .card-bg img { filter: brightness(0.55) contrast(1.1); }
-      .posts article.with-bg:before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.6)); z-index: 1; }
-      .posts article.with-bg > *:not(.card-bg) { position: relative; z-index: 2; color: #fff; }
-      .posts article.with-bg header .date { color: rgba(255,255,255,0.9); }
-      .posts article.with-bg a.button { border-color: rgba(255,255,255,0.85); color: #fff !important; }
-      .posts article.with-bg a.button:hover { background: rgba(255,255,255,0.12); }
-
-      /* Hover/tap reveal background (Releases) */
-      .posts article.reveal { background: #fff; color: #111; transition: color .25s ease; }
-      .posts article.reveal > *:not(.card-bg) { position: relative; z-index: 2; }
-      .posts article.reveal .card-bg img { opacity: 0; transition: opacity .35s ease, filter .35s ease; filter: brightness(0.6) contrast(1.1); }
-      .posts article.reveal:before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background .35s ease; z-index: 1; }
-      .posts article.reveal:hover .card-bg img, .posts article.reveal.revealed .card-bg img { opacity: 1; }
-      .posts article.reveal:hover:before, .posts article.reveal.revealed:before { background: rgba(0,0,0,0.35); }
-      .posts article.reveal:hover, .posts article.reveal.revealed { color: #fff; }
-      .posts article.reveal:hover a.button, .posts article.reveal.revealed a.button { border-color: rgba(255,255,255,0.9); color: #fff !important; }
-
-      /* Make nav active link contrast nicely */
-      #nav .links li a { text-transform: none; }
+      /* Bio press image below quotes */
+      .image.main img { object-fit: cover; }
     </style>
   </head>
   <body class="is-preload">
@@ -64,9 +80,9 @@
     <!-- Wrapper -->
     <div id="wrapper" class="fade-in">
 
-      <!-- Intro -->
+      <!-- Intro (Hero) -->
       <div id="intro" class="custom-hero">
-        <h1>jasper</h1>
+        <img src="images/logo.png" alt="jasper logo" class="hero-logo" />
         <p>Producer • Electronic Artist • Live Performance</p>
         <ul class="actions">
           <li><a href="#bio" class="button icon solid solo fa-arrow-down scrolly">Enter</a></li>
@@ -75,7 +91,7 @@
 
       <!-- Header -->
       <header id="header">
-        <a href="index.html" class="logo">jasper</a>
+        <a href="index.html" class="logo"><img src="images/logo.png" alt="jasper" class="logo-img" /></a>
       </header>
 
       <!-- Nav -->
@@ -114,176 +130,170 @@
               <blockquote>“A distinctive artistic voice with sophisticated interplay between organic and electronic elements, executed with clarity and imagination.”<cite>— Mel Uye-Parker (ICMP)</cite></blockquote>
             </div>
           </header>
-          <!-- Placeholder hero image; replace when ready -->
-          <a href="#bio" class="image main"><img src="images/bio-press.jpg" alt="jasper press image" /></a>
+          <a href="#bio" class="image main"><img src="images/bio-press.webp" alt="jasper press image" /></a>
         </article>
 
-        <!-- Client Work / Experience (ordered as requested) -->
+        <!-- Client Work / Experience (ordered & linked) -->
         <section id="work" class="posts">
+
           <!-- 1. Artist Project Launch -->
-          <article class="with-bg">
-            <div class="card-bg"><img src="images/work-1.jpg" alt="Artist Project Launch" /></div>
+          <article class="reveal">
+            <div class="card-bg"><img src="images/work-1.webp" alt="Artist Project Launch — Creative Direction" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Mar 2025</span>
-              <h2><a href="#" target="_blank" rel="noopener">Artist Project Launch — Creative Direction</a></h2>
+              <h2>Artist Project Launch — Creative Direction</h2>
             </header>
             <p>Planned, performed, and executed an original release campaign (promo strategy, visuals, press outreach, launch event). Praised by Nick Halkes (XL Recordings) for initiative and cross-disciplinary skills.</p>
-            <ul class="actions">
-              <li><a href="#" class="button" target="_blank" rel="noopener">View</a></li>
-            </ul>
+            <a class="card-overlay" href="https://www.youtube.com/playlist?list=PLb2EUJqoqMANyWYQbLu4KSofCUOhB4hz0" aria-label="Open project: Artist Project Launch"></a>
           </article>
 
           <!-- 2. Barbican × BBC Radio 3 -->
-          <article class="with-bg">
-            <div class="card-bg"><img src="images/work-2.jpg" alt="Barbican × BBC Radio 3" /></div>
+          <article class="reveal">
+            <div class="card-bg"><img src="images/work-2.webp" alt="Barbican × BBC Radio 3 Commission — Composer (Electronic)" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Feb 2025</span>
-              <h2><a href="#" target="_blank" rel="noopener">Barbican × BBC Radio 3 Commission — Composer (Electronic)</a></h2>
+              <h2>Barbican × BBC Radio 3 Commission — Composer (Electronic)</h2>
             </header>
             <p>Co-created an immersive vocal–electronic piece exploring manipulation, spatial composition, and poetic sound. Performed at the Barbican and broadcast on BBC Radio 3.</p>
-            <ul class="actions">
-              <li><a href="#" class="button" target="_blank" rel="noopener">Listen/Watch</a></li>
-            </ul>
+            <a class="card-overlay" href="https://youtu.be/MTUpPdXKIqs" aria-label="Open project: Barbican × BBC Radio 3"></a>
           </article>
 
           <!-- 3. Live AV Show Development -->
-          <article class="with-bg">
-            <div class="card-bg"><img src="images/work-3.jpg" alt="Live AV Show Development" /></div>
+          <article class="reveal">
+            <div class="card-bg"><img src="images/work-3.webp" alt="Live AV Show Development — The Premises Studios" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Jun 2025</span>
-              <h2><a href="#" target="_blank" rel="noopener">Live AV Show Development — The Premises Studios</a></h2>
+              <h2>Live AV Show Development — The Premises Studios</h2>
             </header>
             <p>Designed and performed an integrated electronic live set with synced lighting/visuals, live looping, and remixing. Built responsive MIDI systems to control audio and visual elements dynamically.</p>
-            <ul class="actions">
-              <li><a href="#" class="button" target="_blank" rel="noopener">Highlights</a></li>
-            </ul>
+            <a class="card-overlay" href="https://youtu.be/tvJ7rZVWtcI" aria-label="Open project: Live AV Show Development"></a>
           </article>
 
           <!-- 4. National Gallery Commission -->
-          <article class="with-bg">
-            <div class="card-bg"><img src="images/work-4.jpg" alt="National Gallery Commission" /></div>
+          <article class="reveal">
+            <div class="card-bg"><img src="images/work-4.webp" alt="National Gallery Commission — Composer (String Quartet)" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Mar 2023</span>
-              <h2><a href="#" target="_blank" rel="noopener">National Gallery Commission — Composer (String Quartet)</a></h2>
+              <h2>National Gallery Commission — Composer (String Quartet)</h2>
             </header>
             <p>Composed an original string quartet inspired by a selected artwork for the National Gallery’s Friday Lates. Collaborated with classically trained performers in a public setting.</p>
-            <ul class="actions">
-              <li><a href="#" class="button" target="_blank" rel="noopener">Details</a></li>
-            </ul>
+            <a class="card-overlay" href="https://youtu.be/GYG5FtKLWxw" aria-label="Open project: National Gallery Commission"></a>
           </article>
 
           <!-- 5. Norwich Love Light Festival -->
-          <article class="with-bg">
-            <div class="card-bg"><img src="images/work-5.jpg" alt="Norwich Love Light Festival" /></div>
+          <article class="reveal">
+            <div class="card-bg"><img src="images/work-5.webp" alt="Norwich Love Light Festival — AV Composer" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Feb 2022</span>
-              <h2><a href="#" target="_blank" rel="noopener">Norwich Love Light Festival — AV Composer</a></h2>
+              <h2>Norwich Love Light Festival — AV Composer</h2>
             </header>
             <p>Created a multimedia installation combining music and projection art to explore light, sound, and emotion.</p>
-            <ul class="actions">
-              <li><a href="#" class="button" target="_blank" rel="noopener">Gallery</a></li>
-            </ul>
+            <a class="card-overlay" href="https://www.youtube.com/watch?v=Xxsos4vQPuw" aria-label="Open project: Norwich Love Light Festival"></a>
           </article>
 
           <!-- 6. RCA Animated Short (LIAF) -->
-          <article class="with-bg">
-            <div class="card-bg"><img src="images/work-6.jpg" alt="RCA Animated Short (LIAF Festival)" /></div>
+          <article class="reveal">
+            <div class="card-bg"><img src="images/work-6.webp" alt="RCA Animated Short (LIAF Festival) — Composer" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Jul 2023</span>
-              <h2><a href="#" target="_blank" rel="noopener">RCA Animated Short (LIAF Festival) — Composer</a></h2>
+              <h2>RCA Animated Short (LIAF Festival) — Composer</h2>
             </header>
             <p>Scored an animated short on mass culture and the industrialisation of art. Rhythm language inspired by Pink Floyd’s “Money,” tightly synced to edit for festival screening.</p>
-            <ul class="actions">
-              <li><a href="#" class="button" target="_blank" rel="noopener">Watch</a></li>
-            </ul>
+            <a class="card-overlay" href="https://www.facebook.com/LIAFanimation/videos/introducing-sub-text-ltd-celebrating-our-long-shorts-programme-screening-tomorro/878621930512084/" aria-label="Open project: RCA Animated Short"></a>
           </article>
 
           <!-- 7. Content Producer — Yes Please! / SMN UK -->
-          <article class="with-bg">
-            <div class="card-bg"><img src="images/work-7.jpg" alt="Content Producer — Yes Please! / SMN UK" /></div>
+          <article class="reveal">
+            <div class="card-bg"><img src="images/work-7.webp" alt="Content Producer — Yes Please! / SMN UK" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Jul 2024</span>
-              <h2><a href="#" target="_blank" rel="noopener">Content Producer — Yes Please! / Student Music Network UK</a></h2>
+              <h2>Content Producer — Yes Please! / Student Music Network UK</h2>
             </header>
             <p>Filmed, edited, and produced artist interviews and backstage content at Wireless and Bearded Theory festivals (NSG, Kairo Keyz, Big Special, Prima Queen). Edited a remote interview with Briston Maroney.</p>
-            <ul class="actions">
-              <li><a href="#" class="button" target="_blank" rel="noopener">Clips</a></li>
-            </ul>
+            <a class="card-overlay" href="https://www.youtube.com/watch?v=swsW59he5Yw" aria-label="Open project: Content Producer — Yes Please! / SMN UK"></a>
           </article>
 
           <!-- 8. Head of Production — In Britannia -->
-          <article class="with-bg">
-            <div class="card-bg"><img src="images/work-8.jpg" alt="Head of Production — In Britannia" /></div>
+          <article class="reveal">
+            <div class="card-bg"><img src="images/work-8.webp" alt="Head of Production — In Britannia by WhyNotJimi" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Nov 2023</span>
-              <h2><a href="#" target="_blank" rel="noopener">Head of Production — In Britannia by WhyNotJimi</a></h2>
+              <h2>Head of Production — In Britannia by WhyNotJimi</h2>
             </header>
             <p>Oversaw recording, mixing, mastering, and sonic direction for the album, shaping its narrative arc and cohesive palette.</p>
-            <ul class="actions">
-              <li><a href="#" class="button" target="_blank" rel="noopener">Album</a></li>
-            </ul>
+            <a class="card-overlay" href="https://open.spotify.com/album/4bvGSN5XILHxedY8LJ9aJk?si=nQyvt41vRdqbktVrroYeGA" aria-label="Open project: In Britannia"></a>
           </article>
 
           <!-- 9. Producer & Vocal Engineer — Cross‑Cultural Pop -->
-          <article class="with-bg">
-            <div class="card-bg"><img src="images/work-9.jpg" alt="Producer & Vocal Engineer — Cross‑Cultural Pop" /></div>
+          <article class="reveal">
+            <div class="card-bg"><img src="images/work-9.webp" alt="Producer &amp; Vocal Engineer — Cross‑Cultural Pop Project" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Jun 2025</span>
-              <h2><a href="#" target="_blank" rel="noopener">Producer &amp; Vocal Engineer — Cross-Cultural Pop Project</a></h2>
+              <h2>Producer &amp; Vocal Engineer — Cross-Cultural Pop Project</h2>
             </header>
             <p>Blended Mediterranean folk influences with contemporary electronic production, using sonic design and vocal treatment to reflect cultural identity.</p>
-            <ul class="actions">
-              <li><a href="#" class="button" target="_blank" rel="noopener">Listen</a></li>
-            </ul>
+            <a class="card-overlay" href="https://on.soundcloud.com/nPHdbZTs40W5mivszo" aria-label="Open project: Producer & Vocal Engineer"></a>
           </article>
         </section>
 
-        <!-- Releases -->
+        <!-- Releases (hover/tap reveal with full-card link) -->
         <section id="releases" class="posts">
           <article class="reveal">
-            <div class="card-bg"><img src="images/release-1.jpg" alt="i can feel my mind cover" /></div>
+            <div class="card-bg"><img src="images/release-1.webp" alt="i can feel my mind cover" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Single</span>
-              <h2><a href="#releases">i can feel my mind</a></h2>
+              <h2>i can feel my mind</h2>
             </header>
             <p>5:00 • 137 BPM • Electronic / Atmospheric Club</p>
-            <ul class="actions">
-              <li><a href="https://linktr.ee/_iasper" class="button" target="_blank" rel="noopener">Listen</a></li>
-            </ul>
+            <a class="card-overlay" href="https://linktr.ee/_iasper" aria-label="Open release: i can feel my mind"></a>
           </article>
 
           <article class="reveal">
-            <div class="card-bg"><img src="images/release-2.jpg" alt="Drag Race UK cover" /></div>
+            <div class="card-bg"><img src="images/release-2.webp" alt="Drag Race UK cover" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Upcoming • 2025</span>
-              <h2><a href="#releases">Drag Race UK</a></h2>
+              <h2>Drag Race UK</h2>
             </header>
             <p>Single • Underground Electronica / Future Downtempo</p>
           </article>
 
           <article class="reveal">
-            <div class="card-bg"><img src="images/release-3.jpg" alt="Love Away cover" /></div>
+            <div class="card-bg"><img src="images/release-3.webp" alt="Love Away cover" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Upcoming • 2025</span>
-              <h2><a href="#releases">Love Away</a></h2>
+              <h2>Love Away</h2>
             </header>
             <p>Single • Electronic / House / Downtempo</p>
           </article>
 
           <article class="reveal">
-            <div class="card-bg"><img src="images/release-4.jpg" alt="Raven (jasper’s mix) cover" /></div>
+            <div class="card-bg"><img src="images/release-4.webp" alt="Raven (jasper’s mix) cover" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Upcoming</span>
-              <h2><a href="#releases">Raven (jasper’s mix)</a></h2>
+              <h2>Raven (jasper’s mix)</h2>
             </header>
             <p>Remix of “Raven” by H.LLS feat. Col3trane • Underground EDM / Jersey Club / Electronica</p>
           </article>
 
           <article class="reveal">
-            <div class="card-bg"><img src="images/release-5.jpg" alt="Unnamed album cover" /></div>
+            <div class="card-bg"><img src="images/release-5.webp" alt="Unnamed album cover" /></div>
+            <div class="overlay"></div>
             <header>
               <span class="date">Upcoming • 2026</span>
-              <h2><a href="#releases">Unnamed</a></h2>
+              <h2>Unnamed</h2>
             </header>
             <p>Album • Electronica / EDM / Downtempo</p>
           </article>
@@ -298,7 +308,7 @@
           <ul>
             <li>Immersive audiovisual live shows</li>
             <li>Electronic production &amp; remixing</li>
-            <li>Custom sound design &amp; sampling</li>
+            <li>Composition for picture / media / instalment</li>
             <li>Collaborative performance projects</li>
             <li>Base: London, UK</li>
             <li>Live setup: Laptop (Ableton Live), Novation Launch Control XL, AKAI MPD218, MIDI keyboard, Ableton integration with frequency and MIDI‑reactive visuals</li>
@@ -374,16 +384,24 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-      <script>
-      // Simple tap-to-reveal for touch devices on release cards
+
+    <!-- Reveal on scroll for mobile (and desktop too) -->
+    <script>
       (function(){
         var cards = document.querySelectorAll('.posts article.reveal');
-        cards.forEach(function(card){
-          card.addEventListener('touchstart', function(){
-            card.classList.add('revealed');
-            setTimeout(function(){ card.classList.remove('revealed'); }, 1800);
-          }, {passive:true});
-        });
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+              if (entry.isIntersecting) entry.target.classList.add('revealed');
+            });
+          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.25 });
+          cards.forEach(function(card){ io.observe(card); });
+        } else {
+          // Fallback: reveal on first touch/click
+          cards.forEach(function(card){
+            card.addEventListener('touchstart', function(){ card.classList.add('revealed'); }, {passive:true});
+          });
+        }
       })();
     </script>
   </body>
