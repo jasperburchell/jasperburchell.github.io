@@ -26,25 +26,23 @@
       h1,h2,h3,h4,h5,h6, .logo { font-family: 'Author', 'Satoshi', sans-serif; font-weight: 700; letter-spacing: 0.01em; }
       #bio .major p { font-style: normal; }
 
-      /* ========= NAV: classic block + line-height centering (matches social icons) ========= */
+      /* ========= NAV: classic block + line-height centering ========= */
       #nav .links li { margin: 0; padding: 0; }
       #nav .links li a {
-        display: block;                   /* no flex; reliable across Safari/Chrome */
-        height: 3.5rem;                   /* same as template row height */
-        line-height: 3.5rem;              /* makes text vertically centered */
-        padding: 0 1.25rem;               /* horizontal breathing room only */
-
+        display: block;
+        height: 3.5rem;
+        line-height: 3.5rem;
+        padding: 0 1.25rem;
         text-transform: uppercase;
         letter-spacing: 0.06em;
         font-family: 'Author','Satoshi',sans-serif;
-        border-bottom: none !important;   /* remove faint underline */
+        border-bottom: none !important;
         text-decoration: none !important;
-        position: relative;               /* keep active pill pseudo-elements aligned */
+        position: relative;
       }
       @media screen and (max-width: 980px) {
         #nav .links li a { height: 3.25rem; line-height: 3.25rem; }
       }
-      /* Keep template :before/:after for active “white pill” */
       #nav .links li a:before, #nav .links li a:after { content: ""; }
 
       /* Hero background + logo */
@@ -72,12 +70,12 @@
       .posts article .card-bg { position: absolute; inset: 0; z-index: 0; }
       .posts article .card-bg img {
         width: 100%; height: 100%; object-fit: cover;
-        opacity: 0; transition: opacity .6s ease, filter .6s ease; /* slower reveal */
+        opacity: 0; transition: opacity .6s ease, filter .6s ease;
         filter: brightness(0.8) contrast(1.05);
       }
       .posts article .overlay {
         content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0);
-        transition: background .6s ease; z-index: 1; /* slower overlay fade */
+        transition: background .6s ease; z-index: 1;
       }
       .posts article > *:not(.card-bg):not(.overlay):not(a.card-overlay) { position: relative; z-index: 2; }
 
@@ -89,7 +87,7 @@
       .posts article.reveal:hover .card-bg img,
       .posts article.reveal.revealed .card-bg img { opacity: 1; }
       .posts article.reveal:hover .overlay,
-      .posts article.reveal.revealed .overlay { background: rgba(0,0,0,0.14); } /* lighter overlay */
+      .posts article.reveal.revealed .overlay { background: rgba(0,0,0,0.14); }
       .posts article.reveal:hover,
       .posts article.reveal.revealed { color: #fff; }
       .posts article.reveal:hover h2, .posts article.reveal:hover h2 a,
@@ -103,9 +101,29 @@
         text-indent: -9999px; overflow: hidden;
       }
 
-      /* Press quotes styling */
-      .press-quotes blockquote { margin: 0 0 1.25rem 0; font-style: italic; }
-      .press-quotes cite { display: block; opacity: 0.85; font-style: normal; margin-top: 0.25rem; }
+      /* ====== NEW: Press quotes – remove left rule & center text ====== */
+      .press-quotes blockquote {
+        margin: 0 0 1.25rem 0;
+        padding: 0;                /* remove left padding from border removal */
+        border: none !important;   /* kill the vertical line */
+        text-align: center;        /* center the quote text */
+        font-style: italic;
+      }
+      .press-quotes cite {
+        display: block;
+        opacity: 0.85;
+        font-style: normal;
+        margin-top: 0.25rem;
+        text-align: center;        /* center the attribution as well */
+      }
+
+      /* ====== NEW: Center card descriptions & normalise spacing ====== */
+      .posts article p {
+        text-align: center;        /* center the descriptions/notes */
+        white-space: normal;       /* avoid weird wrapping behaviour */
+        word-spacing: normal;      /* ensure no odd gaps between words */
+        text-justify: auto;        /* make sure nothing is forced justified */
+      }
 
       /* Bio press image below quotes */
       .image.main img { object-fit: cover; }
@@ -169,10 +187,9 @@
           <a href="#bio" class="image main"><img src="images/bio-press.webp" alt="jasper press image" /></a>
         </article>
 
-        <!-- Client Work / Experience (ordered & linked) -->
+        <!-- Client Work / Experience -->
         <section id="work" class="posts">
 
-          <!-- 1. Artist Project Launch -->
           <article class="reveal">
             <div class="card-bg"><img src="images/work-1.webp" alt="Artist Project Launch — Creative Direction" /></div>
             <div class="overlay"></div>
@@ -184,7 +201,6 @@
             <a class="card-overlay" href="https://www.youtube.com/playlist?list=PLb2EUJqoqMANyWYQbLu4KSofCUOhB4hz0" target="_blank" rel="noopener" aria-label="Open project: Artist Project Launch"></a>
           </article>
 
-          <!-- 2. Barbican × BBC Radio 3 -->
           <article class="reveal">
             <div class="card-bg"><img src="images/work-2.webp" alt="Barbican × BBC Radio 3 Commission — Composer (Electronic)" /></div>
             <div class="overlay"></div>
@@ -196,7 +212,6 @@
             <a class="card-overlay" href="https://youtu.be/MTUpPdXKIqs" target="_blank" rel="noopener" aria-label="Open project: Barbican × BBC Radio 3"></a>
           </article>
 
-          <!-- 3. Live AV Show Development -->
           <article class="reveal">
             <div class="card-bg"><img src="images/work-3.webp" alt="Live AV Show Development — The Premises Studios" /></div>
             <div class="overlay"></div>
@@ -208,7 +223,6 @@
             <a class="card-overlay" href="https://youtu.be/tvJ7rZVWtcI" target="_blank" rel="noopener" aria-label="Open project: Live AV Show Development"></a>
           </article>
 
-          <!-- 4. National Gallery Commission -->
           <article class="reveal">
             <div class="card-bg"><img src="images/work-4.webp" alt="National Gallery Commission — Composer (String Quartet)" /></div>
             <div class="overlay"></div>
@@ -220,7 +234,6 @@
             <a class="card-overlay" href="https://youtu.be/GYG5FtKLWxw" target="_blank" rel="noopener" aria-label="Open project: National Gallery Commission"></a>
           </article>
 
-          <!-- 5. Norwich Love Light Festival -->
           <article class="reveal">
             <div class="card-bg"><img src="images/work-5.webp" alt="Norwich Love Light Festival — AV Composer" /></div>
             <div class="overlay"></div>
@@ -232,7 +245,6 @@
             <a class="card-overlay" href="https://www.youtube.com/watch?v=Xxsos4vQPuw" target="_blank" rel="noopener" aria-label="Open project: Norwich Love Light Festival"></a>
           </article>
 
-          <!-- 6. RCA Animated Short (LIAF) -->
           <article class="reveal">
             <div class="card-bg"><img src="images/work-6.webp" alt="RCA Animated Short (LIAF Festival) — Composer" /></div>
             <div class="overlay"></div>
@@ -244,7 +256,6 @@
             <a class="card-overlay" href="https://www.facebook.com/LIAFanimation/videos/introducing-sub-text-ltd-celebrating-our-long-shorts-programme-screening-tomorro/878621930512084/" target="_blank" rel="noopener" aria-label="Open project: RCA Animated Short"></a>
           </article>
 
-          <!-- 7. Content Producer — Yes Please! / SMN UK -->
           <article class="reveal">
             <div class="card-bg"><img src="images/work-7.webp" alt="Content Producer — Yes Please! / SMN UK" /></div>
             <div class="overlay"></div>
@@ -256,7 +267,6 @@
             <a class="card-overlay" href="https://www.youtube.com/watch?v=swsW59he5Yw" target="_blank" rel="noopener" aria-label="Open project: Content Producer — Yes Please! / SMN UK"></a>
           </article>
 
-          <!-- 8. Head of Production — In Britannia -->
           <article class="reveal">
             <div class="card-bg"><img src="images/work-8.webp" alt="Head of Production — In Britannia by WhyNotJimi" /></div>
             <div class="overlay"></div>
@@ -268,7 +278,6 @@
             <a class="card-overlay" href="https://open.spotify.com/album/4bvGSN5XILHxedY8LJ9aJk?si=nQyvt41vRdqbktVrroYeGA" target="_blank" rel="noopener" aria-label="Open project: In Britannia"></a>
           </article>
 
-          <!-- 9. Producer & Vocal Engineer — Cross‑Cultural Pop -->
           <article class="reveal">
             <div class="card-bg"><img src="images/work-9.webp" alt="Producer &amp; Vocal Engineer — Cross‑Cultural Pop Project" /></div>
             <div class="overlay"></div>
@@ -281,7 +290,7 @@
           </article>
         </section>
 
-        <!-- Releases (hover on desktop, scroll reveal on touch; full-card link) -->
+        <!-- Releases -->
         <section id="releases" class="posts">
           <article class="reveal">
             <div class="card-bg">
@@ -434,10 +443,9 @@
             entries.forEach(function(entry){
               if (entry.isIntersecting) entry.target.classList.add('revealed');
             });
-          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.85 }); // reveal later on mobile
+          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.85 });
           cards.forEach(function(card){ io.observe(card); });
         }
-        // On desktop/laptop: CSS :hover handles reveal; no JS needed.
       })();
     </script>
   </body>
