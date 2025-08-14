@@ -26,17 +26,32 @@
       h1,h2,h3,h4,h5,h6, .logo { font-family: 'Author', 'Satoshi', sans-serif; font-weight: 700; letter-spacing: 0.01em; }
       #bio .major p { font-style: normal; }
 
-      /* NAV: all caps, centered vertically, no underline line */
+      /* NAV: all caps, centered vertically & horizontally, no underline line (Safari-safe) */
+      #nav .links {
+        display: flex; align-items: center; gap: 0;
+      }
+      #nav .links li {
+        list-style: none;
+        display: block;
+        height: 3.5rem;
+        margin: 0; padding: 0;
+      }
       #nav .links li a {
         text-transform: uppercase;
         letter-spacing: 0.06em;
         display: flex; align-items: center; justify-content: center;
-        height: 3.5rem; /* matches template nav item height */
-        border-bottom: none !important;
+        height: 100%;
+        padding: 0 1.25rem !important;
+        margin: 0 !important;
+        line-height: 1 !important;
+        border: 0 !important;
+        -webkit-font-smoothing: antialiased;
+        text-decoration: none !important;
       }
-      #nav .links li a:after { display: none !important; } /* kill subtle underline */
+      #nav .links li a:after,
+      #nav .links li a:before { display: none !important; }
       @media screen and (max-width: 980px) {
-        #nav .links li a { height: 3.25rem; }
+        #nav .links li { height: 3.25rem; }
       }
 
       /* Hero background + logo */
@@ -64,12 +79,12 @@
       .posts article .card-bg { position: absolute; inset: 0; z-index: 0; }
       .posts article .card-bg img {
         width: 100%; height: 100%; object-fit: cover;
-        opacity: 0; transition: opacity .35s ease, filter .35s ease;
+        opacity: 0; transition: opacity .6s ease, filter .6s ease; /* slower reveal */
         filter: brightness(0.8) contrast(1.05);
       }
       .posts article .overlay {
         content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0);
-        transition: background .35s ease; z-index: 1;
+        transition: background .6s ease; z-index: 1; /* slower overlay fade */
       }
       .posts article > *:not(.card-bg):not(.overlay):not(a.card-overlay) { position: relative; z-index: 2; }
 
@@ -81,7 +96,7 @@
       .posts article.reveal:hover .card-bg img,
       .posts article.reveal.revealed .card-bg img { opacity: 1; }
       .posts article.reveal:hover .overlay,
-      .posts article.reveal.revealed .overlay { background: rgba(0,0,0,0.18); } /* lighter overlay */
+      .posts article.reveal.revealed .overlay { background: rgba(0,0,0,0.14); } /* lighter overlay than before */
       .posts article.reveal:hover,
       .posts article.reveal.revealed { color: #fff; }
       .posts article.reveal:hover h2, .posts article.reveal:hover h2 a,
@@ -276,7 +291,8 @@
         <!-- Releases (hover on desktop, scroll reveal on touch; full-card link) -->
         <section id="releases" class="posts">
           <article class="reveal">
-            <div class="card-bg"><img src="images/release-1.webp" alt="i can feel my mind cover" /></div>
+            <!-- NOTE: encoded space between 1 and .webp -->
+            <div class="card-bg"><img src="images/release-1%20.webp" alt="i can feel my mind cover" /></div>
             <div class="overlay"></div>
             <header>
               <span class="date">Single</span>
@@ -293,7 +309,7 @@
               <span class="date">Upcoming • 2025</span>
               <h2>Drag Race UK</h2>
             </header>
-            <p>Single • Underground Electronica / Future Downtempo</p>
+            <p>Single • Underground Electronica • Future Downtempo</p>
           </article>
 
           <article class="reveal">
@@ -303,7 +319,7 @@
               <span class="date">Upcoming • 2025</span>
               <h2>Love Away</h2>
             </header>
-            <p>Single • Electronic / House / Downtempo</p>
+            <p>Single • Electronic • House • Downtempo</p>
           </article>
 
           <article class="reveal">
@@ -313,7 +329,7 @@
               <span class="date">Upcoming</span>
               <h2>Raven (jasper’s mix)</h2>
             </header>
-            <p>Remix of “Raven” by H.LLS feat. Col3trane • Underground EDM / Jersey Club / Electronica</p>
+            <p>Remix of “Raven” by H.LLS feat. Col3trane • Underground EDM • Jersey Club • Electronica</p>
           </article>
 
           <article class="reveal">
@@ -323,7 +339,7 @@
               <span class="date">Upcoming • 2026</span>
               <h2>Unnamed</h2>
             </header>
-            <p>Album • Electronica / EDM / Downtempo</p>
+            <p>Album • Electronica • EDM • Downtempo</p>
           </article>
         </section>
 
@@ -424,7 +440,7 @@
             entries.forEach(function(entry){
               if (entry.isIntersecting) entry.target.classList.add('revealed');
             });
-          }, { rootMargin: '0px 0px -20% 0px', threshold: 0.6 }); // later reveal on mobile
+          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.85 }); // reveal later on mobile
           cards.forEach(function(card){ io.observe(card); });
         }
         // On desktop/laptop: CSS :hover handles reveal; no JS needed.
