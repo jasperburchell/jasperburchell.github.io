@@ -26,20 +26,29 @@
       h1,h2,h3,h4,h5,h6, .logo { font-family: 'Author', 'Satoshi', sans-serif; font-weight: 700; letter-spacing: 0.01em; }
       #bio .major p { font-style: normal; }
 
-      /* ========= NAV: keep template layout, just uppercase + Author, no underline ========= */
-      /* 1) Let template control sizing/centering. */
-      /* 2) Only adjust caps, letter spacing, font, and remove the thin underline border. */
+      /* ========= NAV: template layout preserved, vertically centered labels ========= */
+      #nav .links li { margin: 0; padding: 0; }
       #nav .links li a {
         text-transform: uppercase;
         letter-spacing: 0.06em;
         font-family: 'Author','Satoshi',sans-serif;
-        border-bottom: none !important;        /* remove faint underline */
-        line-height: normal;                    /* revert any previous hard line-height */
-        padding-top: 0.85rem;                   /* gentle vertical rhythm, template-friendly */
-        padding-bottom: 0.85rem;
+        border-bottom: none !important;      /* remove faint underline */
+        display: flex; align-items: center;  /* vertical center */
+        justify-content: center;             /* horizontal center */
+        height: 3.5rem;                      /* match template item height */
+        padding: 0 1.25rem;                  /* horizontal room only */
+        line-height: 1;                      /* avoid baseline drift */
+        position: relative;                  /* keep template pills aligned */
+        text-decoration: none !important;
       }
-      /* IMPORTANT: Do NOT hide :before/:after; template uses them for active box. */
-      /* (We previously hid them which broke the white active pill.) */
+      @media screen and (max-width: 980px) { #nav .links li a { height: 3.25rem; } }
+      /* Keep template :before/:after for active “white pill” */
+      #nav .links li a:before, #nav .links li a:after { content: ""; }
+
+      /* Slight WebKit nudge if needed */
+      @supports (-webkit-touch-callout: none) {
+        #nav .links li a { transform: translateY(1px); }
+      }
 
       /* Hero background + logo */
       #intro.custom-hero { position: relative; }
@@ -278,8 +287,10 @@
         <!-- Releases (hover on desktop, scroll reveal on touch; full-card link) -->
         <section id="releases" class="posts">
           <article class="reveal">
-            <!-- NOTE: encoded space between 1 and .webp -->
-            <div class="card-bg"><img src="images/release-1%20.webp" alt="i can feel my mind cover" /></div>
+            <div class="card-bg">
+              <!-- Make sure the file in /images is renamed to release-1.webp (no space) -->
+              <img src="images/release-1.webp" alt="i can feel my mind cover" />
+            </div>
             <div class="overlay"></div>
             <header>
               <span class="date">Single</span>
