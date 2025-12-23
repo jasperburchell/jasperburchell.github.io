@@ -101,12 +101,12 @@
         text-indent: -9999px; overflow: hidden;
       }
 
-      /* ====== NEW: Press quotes – remove left rule & center text ====== */
+      /* ====== Press quotes – remove left rule & center text ====== */
       .press-quotes blockquote {
         margin: 0 0 1.25rem 0;
-        padding: 0;                /* remove left padding from border removal */
-        border: none !important;   /* kill the vertical line */
-        text-align: center;        /* center the quote text */
+        padding: 0;
+        border: none !important;
+        text-align: center;
         font-style: italic;
       }
       .press-quotes cite {
@@ -114,19 +114,35 @@
         opacity: 0.85;
         font-style: normal;
         margin-top: 0.25rem;
-        text-align: center;        /* center the attribution as well */
+        text-align: center;
       }
 
-      /* ====== NEW: Center card descriptions & normalise spacing ====== */
+      /* ====== Center card descriptions & normalise spacing ====== */
       .posts article p {
-        text-align: center;        /* center the descriptions/notes */
-        white-space: normal;       /* avoid weird wrapping behaviour */
-        word-spacing: normal;      /* ensure no odd gaps between words */
-        text-justify: auto;        /* make sure nothing is forced justified */
+        text-align: center;
+        white-space: normal;
+        word-spacing: normal;
+        text-justify: auto;
       }
 
-      /* Bio press image below quotes */
-      .image.main img { object-fit: cover; }
+      /* ====== NEW: Responsive YouTube embed in the "Bio & Press" slot ====== */
+      .video.main {
+        position: relative;
+        width: 100%;
+        margin: 4rem 0;
+        padding-top: 56.25%; /* 16:9 */
+        overflow: hidden;
+      }
+      .video.main iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+      @media screen and (max-width: 736px) {
+        .video.main { margin: 2rem 0; }
+      }
     </style>
   </head>
   <body class="is-preload">
@@ -176,7 +192,10 @@
           <header class="major">
             <span class="date">About</span>
             <h2><a href="#bio">Bio &amp; Press</a></h2>
-            <p>jasper is a multi-disciplinary electronic music producer, artist, and creative who blends intricate sound design, emotive melodies, and bold visual worlds. Trained at Guildhall School of Music and Drama, he moves fluidly between music production, vocal engineering, and live audiovisual performance — crafting immersive shows and concept-driven releases that bridge genres and media. Whether producing for others, composing for institutions, or building his own projects from the ground up, jasper’s work is united by attention to detail, curiosity, and a love of turning ideas into experiences.</p>
+
+            <!-- UPDATED: removed the em dash and replaced with a comma -->
+            <p>jasper is a multi-disciplinary electronic music producer, artist, and creative who blends intricate sound design, emotive melodies, and bold visual worlds. Trained at Guildhall School of Music and Drama, he moves fluidly between music production, vocal engineering, and live audiovisual performance, crafting immersive shows and concept-driven releases that bridge genres and media. Whether producing for others, composing for institutions, or building his own projects from the ground up, jasper’s work is united by attention to detail, curiosity, and a love of turning ideas into experiences.</p>
+
             <div class="press-quotes">
               <blockquote>“A strong first release — great work. Keep building momentum.”<cite>— Nick Halkes (XL Recordings)</cite></blockquote>
               <blockquote>“A well-thought-out and professional campaign — the foundations of a very successful artist career.”<cite>— Sine Buyuka (Manager &amp; Label Founder, Injazero Records)</cite></blockquote>
@@ -184,7 +203,17 @@
               <blockquote>“A distinctive artistic voice with sophisticated interplay between organic and electronic elements, executed with clarity and imagination.”<cite>— Mel Uye-Parker (ICMP)</cite></blockquote>
             </div>
           </header>
-          <a href="#bio" class="image main"><img src="images/bio-press.webp" alt="jasper press image" /></a>
+
+          <!-- UPDATED: showreel embedded where the large Bio & Press image used to be -->
+          <div class="video main" aria-label="Showreel video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/aoTfKVaD1MA?rel=0&modestbranding=1"
+              title="jasper — showreel"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </article>
 
         <!-- Client Work / Experience -->
@@ -279,7 +308,7 @@
           </article>
 
           <article class="reveal">
-            <div class="card-bg"><img src="images/work-9.webp" alt="Producer &amp; Vocal Engineer — Cross‑Cultural Pop Project" /></div>
+            <div class="card-bg"><img src="images/work-9.webp" alt="Producer &amp; Vocal Engineer — Cross-Cultural Pop Project" /></div>
             <div class="overlay"></div>
             <header>
               <span class="date">Jun 2025</span>
@@ -309,7 +338,7 @@
             <div class="card-bg"><img src="images/release-2.webp" alt="Drag Race UK cover" /></div>
             <div class="overlay"></div>
             <header>
-              <span class="date">Upcoming • 2025</span>
+              <span class="date">Upcoming • 2026</span>
               <h2>Drag Race UK</h2>
             </header>
             <p>Single • Underground Electronica • Future Downtempo</p>
@@ -319,7 +348,7 @@
             <div class="card-bg"><img src="images/release-3.webp" alt="Love Away cover" /></div>
             <div class="overlay"></div>
             <header>
-              <span class="date">Upcoming • 2025</span>
+              <span class="date">Upcoming • 2026</span>
               <h2>Love Away</h2>
             </header>
             <p>Single • Electronic • House • Downtempo</p>
@@ -339,7 +368,7 @@
             <div class="card-bg"><img src="images/release-5.webp" alt="Unnamed album cover" /></div>
             <div class="overlay"></div>
             <header>
-              <span class="date">Upcoming • 2026</span>
+              <span class="date">Upcoming • 2027</span>
               <h2>Unnamed</h2>
             </header>
             <p>Album • Electronica • EDM • Downtempo</p>
@@ -349,7 +378,8 @@
         <!-- Booking -->
         <section id="booking" class="post">
           <header class="major">
-            <h2>Booking</h2>
+            <!-- UPDATED: header is now a clickable link (replace href with your booking Linktree URL if different) -->
+            <h2><a href="https://linktr.ee/_iasper" target="_blank" rel="noopener">Booking</a></h2>
           </header>
           <p>Available for live electronic sets (15–60 minutes), dance, electronica and downtempo original compositions.</p>
           <ul>
@@ -358,7 +388,7 @@
             <li>Composition for picture / media / instalment</li>
             <li>Collaborative performance projects</li>
             <li>Base: London, UK</li>
-            <li>Live setup: Laptop (Ableton Live), Novation Launch Control XL, AKAI MPD218, MIDI keyboard, Ableton integration with frequency and MIDI‑reactive visuals</li>
+            <li>Live setup: Laptop (Ableton Live), Novation Launch Control XL, AKAI MPD218, MIDI keyboard, Ableton integration with frequency and MIDI-reactive visuals</li>
           </ul>
         </section>
 
